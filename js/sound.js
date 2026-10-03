@@ -17,7 +17,7 @@
   var TK = (window.TK = window.TK || {});
 
   var KEY = 'crusty-sound';
-  var MASTER = 0.55, HUM = 0.22; // HUM is the hum's loudness (0 to about 0.4)
+  var MASTER = 1, HUM = 0.42; // MASTER scales every sound; HUM is the hum's own loudness. Both are at their ceiling: the limiter below catches anything louder.
   var ctx = null, master = null, hum = null;
   var enabled = true;
   var btn = null, stateEl = null;
@@ -39,7 +39,12 @@
       ctx = new AC();
       master = ctx.createGain();
       master.gain.value = MASTER;
-      master.connect(ctx.destination);
+      // a limiter after the master gain, so loud moments (hum + bell + sparks together) never distort
+      var limiter = ctx.createDynamicsCompressor();
+      limiter.threshold.value = -4; limiter.knee.value = 4; limiter.ratio.value = 12;
+      limiter.attack.value = 0.003; limiter.release.value = 0.2;
+      master.connect(limiter);
+      limiter.connect(ctx.destination);
     }
     if (ctx.state === 'suspended') ctx.resume();
     return true;
@@ -64,8 +69,9 @@
     out.connect(master);
 
     var nodes = [];
-    // 60 Hz is inaudible on phone and laptop speakers, so the upper harmonics carry the hum there
-    [[60, 0.5], [120, 0.45], [180, 0.3], [240, 0.16], [360, 0.06]].forEach(function (p) {
+    // Small speakers cannot reproduce 60 Hz at all, so most of the level sits in the harmonics from
+    // 120 Hz up to 600 Hz: that is the part of a hum a phone or laptop actually plays loudly.
+    [[60, 0.3], [120, 0.55], [180, 0.5], [240, 0.45], [300, 0.3], [360, 0.35], [480, 0.2], [600, 0.12]].forEach(function (p) {
       var o = ctx.createOscillator(), g = ctx.createGain();
       o.type = 'sine'; o.frequency.value = p[0]; g.gain.value = p[1];
       o.connect(g); g.connect(out); o.start(t); nodes.push(o);
@@ -74,9 +80,14 @@
     n.buffer = noiseBuffer(2, true); n.loop = true;
     lp.type = 'lowpass'; lp.frequency.value = 340; ng.gain.value = 0.55;
     n.connect(lp); lp.connect(ng); ng.connect(out); n.start(t); nodes.push(n);
+    // fan: a band of mid-range noise, audible on every speaker
+    var fan = ctx.createBufferSource(), bp = ctx.createBiquadFilter(), fg = ctx.createGain();
+    fan.buffer = noiseBuffer(2, false); fan.loop = true;
+    bp.type = 'bandpass'; bp.frequency.value = 780; bp.Q.value = 0.8; fg.gain.value = 0.3;
+    fan.connect(bp); bp.connect(fg); fg.connect(out); fan.start(t); nodes.push(fan);
 
     var lfo = ctx.createOscillator(), lg = ctx.createGain();
-    lfo.frequency.value = 0.22; lg.gain.value = HUM * 0.22;
+    lfo.frequency.value = 0.22; lg.gain.value = HUM * 0.1;
     lfo.connect(lg); lg.connect(out.gain); lfo.start(t); nodes.push(lfo);
 
     hum = { out: out, nodes: nodes };
@@ -100,7 +111,7 @@
     if (!live()) return;
     var t = ctx.currentTime;
     // a small bell: a fundamental plus two inharmonic partials that die away faster
-    [[1, 0.3, 1.7], [2.76, 0.09, 0.9], [5.4, 0.03, 0.45]].forEach(function (p) {
+    [[1, 0.42, 1.7], [2.76, 0.12, 0.9], [5.4, 0.04, 0.45]].forEach(function (p) {
       var o = ctx.createOscillator(), g = ctx.createGain();
       o.type = 'sine'; o.frequency.value = 1760 * p[0];
       g.gain.setValueAtTime(0.0001, t);
