@@ -298,6 +298,7 @@
       skip.hidden = true;
       btn.disabled = false;
       warned.hidden = false;
+      TK.sound.ding();
       if (TK.env.motion) gsap.fromTo(warned, { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.7, ease: 'back.out(2.2)' });
     }
 
@@ -306,7 +307,8 @@
     btn.addEventListener('click', function () {
       warned.hidden = true;
       // Reduced motion: no glitch, no explosion. Just the reveal.
-      if (!TK.env.motion) { warned.hidden = false; return; }
+      if (!TK.env.motion) { warned.hidden = false; TK.sound.ding(); return; }
+      TK.sound.zap();
 
       btn.disabled = true; skip.hidden = false;
       sec.classList.add('is-glitching', 'is-blasting');

@@ -202,6 +202,7 @@
             document.body.appendChild(a); a.click(); a.remove();
             setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000);
             say('Saved. Now go post it.');
+            TK.sound.ding();
           }, 'image/png');
         } catch (err) { fail(); }
       });

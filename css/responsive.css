@@ -71,12 +71,12 @@
   .tile--a { grid-column: 1 / 3; grid-row: span 3; }
   .tile--b { grid-column: 1; grid-row: span 2; }
   .tile--c { grid-column: 2; grid-row: span 2; }
-  .tile--d { grid-column: 1 / 3; grid-row: span 1; }
+  .tile--d { grid-column: 1 / 3; grid-row: span 2; }
   .tile--e { grid-column: 1; grid-row: span 3; }
   .tile--f { grid-column: 2; grid-row: span 2; }
   .tile--g { grid-column: 2; grid-row: span 1; }
   .tile--h { grid-column: 1 / 3; grid-row: span 2; }
-  .tile--i { grid-column: 1 / 3; grid-row: span 1; }
+  .tile--i { grid-column: 1 / 3; grid-row: span 2; }
   .tile__cap { opacity: 1; transform: none; }
   .tile:hover { transform: none; }
   .wall:has(.tile:hover) .tile:not(:hover) { filter: none; transform: none; }
@@ -144,8 +144,18 @@
 @media (max-width: 760px) {
   /* longest single word ("EVERYBODY") has to fit the screen */
   html.is-motion .what__line { font-size: clamp(3rem, 19vw, 7rem); }
-  .tile--text p { font-size: clamp(2rem, 9vw, 3.4rem); }
-  .tile--i p { font-size: clamp(2.4rem, 11vw, 4rem); }
   /* a full price ("$0.00002905") must fit a half-width card on the narrowest phones */
   .stat__value { font-size: clamp(1.15rem, 6.2vw, 2.6rem); }
+}
+
+/* ---------- Sound toggle: bars only on phones, sitting next to the menu button ---------- */
+@media (max-width: 760px) {
+  .nav__sound { margin-left: auto; margin-right: .5rem; width: 40px; height: 40px; padding: 0; justify-content: center; }
+  .nav__sound-label { display: none; }
+}
+
+/* ---------- Receipts on phones: label, amount and link stack ---------- */
+@media (max-width: 760px) {
+  .proof__row { grid-template-columns: 1fr; gap: .35rem; }
+  .proof__value { font-size: clamp(1.6rem, 8vw, 2.4rem); }
 }

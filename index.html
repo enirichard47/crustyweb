@@ -29,6 +29,7 @@
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <!-- Project scripts. Order matters: each registers a module on window.TK; main.js boots them all. -->
+  <script defer src="js/sound.js"></script>
   <script defer src="js/video.js"></script>
   <script defer src="js/cursor.js"></script>
   <script defer src="js/interactions.js"></script>
@@ -73,6 +74,10 @@
       <a href="#faq">FAQ</a>
       <a href="#buy" class="nav__buy" data-cursor="BUY">Buy</a>
     </nav>
+    <button class="nav__sound" id="sound" type="button" aria-pressed="false" aria-label="Sound" data-cursor="SOUND">
+      <i aria-hidden="true"><b></b><b></b><b></b><b></b></i>
+      <span class="nav__sound-label">Sound <span data-sound-state>Off</span></span>
+    </button>
     <button class="nav__burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
       <span></span><span></span>
     </button>
@@ -199,7 +204,7 @@
             <div class="chapter__copy" data-chapter-copy>
               <p class="chapter__num mono">Chapter 04</p>
               <h2 class="chapter__title display xl"><span data-ticker>$CRUSTY</span><br>stays hot</h2>
-              <p class="chapter__line">Listed across the tracking sites. Some supply burned, some locked. Still cooking.</p>
+              <p class="chapter__line">Listed across the tracking sites. 36.8M burned, over 10% locked. Still cooking.</p>
             </div>
           </article>
 
@@ -274,7 +279,10 @@
           <div class="vid" data-video data-src="assets/videos/IMG_1004.MP4" data-label="IMG_1004.MP4" style="--h:6"></div>
           <figcaption class="tile__cap mono">Plate 03</figcaption>
         </figure>
-        <div class="tile tile--d tile--text" data-tile><p class="display">Still<br>dirty.</p></div>
+        <figure class="tile tile--d tile--img" data-tile data-cursor="VIEW">
+          <img src="assets/images/moon_mission.png" alt="Pepe in a chef hat riding a microwave rocket to the moon" loading="lazy" style="object-position:center top">
+          <figcaption class="tile__cap mono">Plate 07</figcaption>
+        </figure>
         <figure class="tile tile--e" data-tile data-cursor="WATCH">
           <div class="vid" data-video data-src="assets/videos/IMG_1008.MP4" data-label="IMG_1008.MP4" style="--h:36"></div>
           <figcaption class="tile__cap mono">Plate 04</figcaption>
@@ -287,8 +295,14 @@
           <div class="vid" data-video data-src="assets/videos/IMG_0778.MP4" data-label="IMG_0778.MP4" style="--h:30"></div>
           <figcaption class="tile__cap mono">Plate 06</figcaption>
         </figure>
-        <div class="tile tile--h tile--text tile--accent" data-tile><p class="display">Heat it.<br>Post it.<br>Repeat.</p></div>
-        <div class="tile tile--i tile--text" data-tile><p class="display"><span data-ticker>$CRUSTY</span><br>still hot</p></div>
+        <figure class="tile tile--h tile--img" data-tile data-cursor="VIEW">
+          <img src="assets/images/wagmi.png" alt="Pepe in sunglasses eating pizza inside a microwave while green candles climb" loading="lazy">
+          <figcaption class="tile__cap mono">Plate 08</figcaption>
+        </figure>
+        <figure class="tile tile--i tile--img" data-tile data-cursor="VIEW">
+          <img src="assets/images/lore.png" alt="Pepe relaxing inside a rusty, smoking microwave" loading="lazy">
+          <figcaption class="tile__cap mono">Plate 09</figcaption>
+        </figure>
       </div>
     </section>
 
@@ -314,6 +328,7 @@
               <button type="button" class="mg__tpl" data-tpl="chillin" data-tpl-src="assets/images/lore.png" aria-pressed="false"><img src="assets/images/lore.png" alt="" loading="lazy"><span class="mono">Chillin</span></button>
               <button type="button" class="mg__tpl" data-tpl="moon" data-tpl-src="assets/images/moon_mission.png" aria-pressed="false"><img src="assets/images/moon_mission.png" alt="" loading="lazy"><span class="mono">Moon</span></button>
               <button type="button" class="mg__tpl" data-tpl="wagmi" data-tpl-src="assets/images/wagmi.png" aria-pressed="false"><img src="assets/images/wagmi.png" alt="" loading="lazy"><span class="mono">Wagmi</span></button>
+              <button type="button" class="mg__tpl" data-tpl="pump" data-tpl-src="assets/images/hodl.png" aria-pressed="false"><img src="assets/images/hodl.png" alt="" loading="lazy"><span class="mono">Pump</span></button>
               <button type="button" class="mg__tpl" data-tpl="ember" aria-pressed="false"><i class="mg__swatch mg__swatch--ember"></i><span class="mono">Ember</span></button>
               <button type="button" class="mg__tpl" data-tpl="rust" aria-pressed="false"><i class="mg__swatch mg__swatch--rust"></i><span class="mono">Rust</span></button>
               <button type="button" class="mg__tpl" data-tpl="soot" aria-pressed="false"><i class="mg__swatch mg__swatch--soot"></i><span class="mono">Soot</span></button>
@@ -402,9 +417,44 @@
           <li class="fact" data-reveal-up><span class="fact__label mono">Ownership</span><span class="fact__value display">Community takeover</span><span class="fact__note">The dev sold and left. The holders run it now.</span></li>
           <li class="fact" data-reveal-up><span class="fact__label mono">Bonding curve</span><span class="fact__value display">Bonded</span><span class="fact__note">The community pushed it all the way through.</span></li>
           <li class="fact" data-reveal-up><span class="fact__label mono">All-time high</span><span class="fact__value display">45K market cap</span><span class="fact__note">A past peak, not a promise.</span></li>
-          <li class="fact" data-reveal-up><span class="fact__label mono">Supply</span><span class="fact__value display">Burned + locked</span><span class="fact__note">Part of the supply is burned, part is locked.</span></li>
+          <li class="fact" data-reveal-up><span class="fact__label mono">Supply</span><span class="fact__value display">Burned + locked</span><span class="fact__note">36.8M burned across three burns. Over 10% locked. <a href="#receipts">See the receipts</a></span></li>
           <li class="fact" data-reveal-up><span class="fact__label mono">Listings</span><span class="fact__value display">Listed</span><span class="fact__note">Tracked on multiple listing sites.</span></li>
         </ul>
+
+        <!-- On-chain proof for the burn and lock claims. Add a row for each new burn. -->
+        <div class="proof" id="receipts">
+          <p class="mono eyebrow-sm" data-reveal-up>Receipts, on-chain</p>
+          <ul class="proof__list">
+          <li data-reveal-up>
+            <a class="proof__row" href="https://solscan.io/tx/AgmEDxiEVt7taYpkRPf3ifknApbJ3T9iQe5c7zLj4owWudMuaK2yf3CUUtWQY6QQwH9bCPs6vqghrvCDXMRWaV6" target="_blank" rel="noopener noreferrer" data-cursor="VIEW">
+              <span class="proof__tag mono">Burn 01</span>
+              <span class="proof__value display">5M <span data-ticker>$CRUSTY</span> burned</span>
+              <span class="proof__go mono">View on Solscan ↗</span>
+            </a>
+          </li>
+          <li data-reveal-up>
+            <a class="proof__row" href="https://solscan.io/tx/3ZTTEP4voweFCLMxtLA9VAw4JamD1fjmaEStxWCniweXceDZs6ekidbdxABj9cwmpr6TLCgNtJABykLUnStgtnRy" target="_blank" rel="noopener noreferrer" data-cursor="VIEW">
+              <span class="proof__tag mono">Burn 02</span>
+              <span class="proof__value display">26M <span data-ticker>$CRUSTY</span> burned</span>
+              <span class="proof__go mono">View on Solscan ↗</span>
+            </a>
+          </li>
+          <li data-reveal-up>
+            <a class="proof__row" href="https://solscan.io/tx/5qYYk2LX57TNq7rzj1cWWHGs4iM7u3EVcVQK5FJqGBnBRnkGhPWFWsf3hiixXw23vst9yDe3vEZUYoTXe48ixfz6" target="_blank" rel="noopener noreferrer" data-cursor="VIEW">
+              <span class="proof__tag mono">Burn 03</span>
+              <span class="proof__value display">5.8M <span data-ticker>$CRUSTY</span> burned</span>
+              <span class="proof__go mono">View on Solscan ↗</span>
+            </a>
+          </li>
+          <li data-reveal-up>
+            <a class="proof__row proof__row--lock" href="https://app.streamflow.finance/contract/solana/mainnet/77Z4ptTMdtS6jCQif1nMpmxs5dDnDqH8o2EeUmTHZre6" target="_blank" rel="noopener noreferrer" data-cursor="VIEW">
+              <span class="proof__tag mono">Lock</span>
+              <span class="proof__value display">Over 10% of supply locked</span>
+              <span class="proof__go mono">View on Streamflow ↗</span>
+            </a>
+          </li>
+          </ul>
+        </div>
       </div>
     </section>
 
@@ -508,7 +558,7 @@
         <li class="phase is-done" data-reveal-up>
           <p class="phase__tag mono"><span>Phase 03</span><b>Done</b></p>
           <h3 class="phase__title display">Full power</h3>
-          <ul><li>Listed on multiple listing sites</li><li>Part of the supply burned</li><li>Part of the supply locked</li></ul>
+          <ul><li>Listed on multiple listing sites</li><li>36.8M <span data-ticker>$CRUSTY</span> burned in three burns</li><li>Over 10% of supply locked on Streamflow</li></ul>
         </li>
         <li class="phase is-next" data-reveal-up>
           <p class="phase__tag mono"><span>Phase 04</span><b>Next</b></p>
@@ -542,7 +592,7 @@
           </div>
           <div class="faq__item" data-reveal-up>
             <h3><button class="faq__q" type="button" id="faq-q4" aria-expanded="false" aria-controls="faq-a4"><span class="display">Is the contract safe?</span><i aria-hidden="true"></i></button></h3>
-            <div class="faq__a" id="faq-a4" role="region" aria-labelledby="faq-q4"><div><p>Do not take a website's word for it. Copy the contract address from this page, paste it into a Solana explorer such as Solscan or a token checker, and look at the mint authority, the freeze authority and the top holders yourself. The team reports that part of the supply has been burned and part is locked.</p></div></div>
+            <div class="faq__a" id="faq-a4" role="region" aria-labelledby="faq-q4"><div><p>Do not take a website's word for it. Copy the contract address from this page, paste it into a Solana explorer such as Solscan or a token checker, and look at the mint authority, the freeze authority and the top holders yourself. The team has burned 36.8M $CRUSTY across three burns and locked over 10% of the supply through Streamflow. Every one of those transactions is linked in the <a href="#receipts">receipts</a> so you can check them on-chain.</p></div></div>
           </div>
           <div class="faq__item" data-reveal-up>
             <h3><button class="faq__q" type="button" id="faq-q5" aria-expanded="false" aria-controls="faq-a5"><span class="display">Where can I trade it?</span><i aria-hidden="true"></i></button></h3>

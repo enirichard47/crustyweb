@@ -23,7 +23,8 @@
       telegram: 'https://t.me/CRUSTYCTO',
       chart: 'https://dexscreener.com/solana/8wl76y2vvwckthgydiucwy58jwautaqub96kwzyvoy6o'
     },
-    marquee: 'Hot • Dirty • Decentralized'
+    marquee: 'Hot • Dirty • Decentralized',
+    sound: true                       // false = the site starts muted until a visitor turns sound on
   };
 
   /* ---------- Environment ---------- */
@@ -149,6 +150,7 @@
     }
 
     // 3. Everything else
+    TK.sound.init();
     TK.cursor.init();
     TK.interactions.init();
     TK.live.init();

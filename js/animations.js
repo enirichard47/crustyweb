@@ -275,6 +275,7 @@
       .to({}, { duration: 0.6 })
       .to(a, { opacity: 0, scale: 0.9, duration: 0.4, ease: 'power2.in' })
       .fromTo(b, { opacity: 0, scale: 2.2 }, { opacity: 1, scale: 1, duration: 0.35, ease: 'expo.out' })
+      .call(function () { TK.sound.ding(); }, null, '<') // the bell lands with the word "Ding."
       .to({}, { duration: 0.4 })
       .to(b, { opacity: 0, duration: 0.25 })
       .fromTo(c, { opacity: 0, y: 70 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' })
