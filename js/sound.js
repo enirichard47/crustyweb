@@ -17,7 +17,7 @@
   var TK = (window.TK = window.TK || {});
 
   var KEY = 'crusty-sound';
-  var MASTER = 1, HUM = 0.42; // MASTER scales every sound; HUM is the hum's own loudness. Both are at their ceiling: the limiter below catches anything louder.
+  var MASTER = 1, HUM = 0.022; // MASTER scales every sound; HUM is the hum's own loudness (0.1 = faint, 0.2 = clearly there, 0.42 = as loud as it goes)
   var ctx = null, master = null, hum = null;
   var enabled = true;
   var btn = null, stateEl = null;
@@ -80,11 +80,6 @@
     n.buffer = noiseBuffer(2, true); n.loop = true;
     lp.type = 'lowpass'; lp.frequency.value = 340; ng.gain.value = 0.55;
     n.connect(lp); lp.connect(ng); ng.connect(out); n.start(t); nodes.push(n);
-    // fan: a band of mid-range noise, audible on every speaker
-    var fan = ctx.createBufferSource(), bp = ctx.createBiquadFilter(), fg = ctx.createGain();
-    fan.buffer = noiseBuffer(2, false); fan.loop = true;
-    bp.type = 'bandpass'; bp.frequency.value = 780; bp.Q.value = 0.8; fg.gain.value = 0.3;
-    fan.connect(bp); bp.connect(fg); fg.connect(out); fan.start(t); nodes.push(fan);
 
     var lfo = ctx.createOscillator(), lg = ctx.createGain();
     lfo.frequency.value = 0.22; lg.gain.value = HUM * 0.1;
@@ -111,7 +106,7 @@
     if (!live()) return;
     var t = ctx.currentTime;
     // a small bell: a fundamental plus two inharmonic partials that die away faster
-    [[1, 0.42, 1.7], [2.76, 0.12, 0.9], [5.4, 0.04, 0.45]].forEach(function (p) {
+    [[1, 0.32, 1.7], [2.76, 0.1, 0.9], [5.4, 0.032, 0.45]].forEach(function (p) {
       var o = ctx.createOscillator(), g = ctx.createGain();
       o.type = 'sine'; o.frequency.value = 1760 * p[0];
       g.gain.setValueAtTime(0.0001, t);
