@@ -17,7 +17,7 @@
   var TK = (window.TK = window.TK || {});
 
   var KEY = 'crusty-sound';
-  var MASTER = 0.55, HUM = 0.085;
+  var MASTER = 0.55, HUM = 0.22; // HUM is the hum's loudness (0 to about 0.4)
   var ctx = null, master = null, hum = null;
   var enabled = true;
   var btn = null, stateEl = null;
@@ -65,7 +65,7 @@
 
     var nodes = [];
     // 60 Hz is inaudible on phone and laptop speakers, so the upper harmonics carry the hum there
-    [[60, 0.5], [120, 0.38], [180, 0.2], [240, 0.09]].forEach(function (p) {
+    [[60, 0.5], [120, 0.45], [180, 0.3], [240, 0.16], [360, 0.06]].forEach(function (p) {
       var o = ctx.createOscillator(), g = ctx.createGain();
       o.type = 'sine'; o.frequency.value = p[0]; g.gain.value = p[1];
       o.connect(g); g.connect(out); o.start(t); nodes.push(o);
@@ -100,7 +100,7 @@
     if (!live()) return;
     var t = ctx.currentTime;
     // a small bell: a fundamental plus two inharmonic partials that die away faster
-    [[1, 0.22, 1.7], [2.76, 0.07, 0.9], [5.4, 0.025, 0.45]].forEach(function (p) {
+    [[1, 0.3, 1.7], [2.76, 0.09, 0.9], [5.4, 0.03, 0.45]].forEach(function (p) {
       var o = ctx.createOscillator(), g = ctx.createGain();
       o.type = 'sine'; o.frequency.value = 1760 * p[0];
       g.gain.setValueAtTime(0.0001, t);
