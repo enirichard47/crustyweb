@@ -1,0 +1,151 @@
+/* ==========================================================================
+   $CRUSTY — responsive.css
+   Mobile is designed on purpose: vertical storytelling, tap interactions,
+   simplified motion, lighter media. Not a shrunken desktop.
+   ========================================================================== */
+
+/* ---------- Tablet and below ---------- */
+@media (max-width: 1024px) {
+  .nav__links { gap: 1.2rem; }
+  .hero__scroll { display: none; }
+  .hero__foot { grid-template-columns: 1fr auto; }
+  .what__reveal { grid-template-columns: 1fr; }
+  html.is-motion .what__reveal { display: flex; flex-direction: column; justify-content: center; gap: 1.5rem; }
+  html.is-motion .what__reveal-media { width: 100%; height: 44vh; flex: none; }
+  .meet__stage { grid-template-columns: 1fr; grid-template-rows: auto auto auto auto; }
+  .meet__title { grid-column: 1; grid-row: 1; flex-direction: row; flex-wrap: wrap; gap: 0 .25em; font-size: clamp(3.4rem, 15vw, 8rem); }
+  .meet__video { grid-column: 1; grid-row: 2; min-height: 0; aspect-ratio: 4 / 5; max-height: 62vh; }
+  .stats { grid-column: 1; grid-row: 3; }
+  .roster { grid-row: 4; }
+
+  /* Newer sections */
+  .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .mg { grid-template-columns: 1fr; }
+  .mg__stage { position: static; }
+  .mg__canvas { max-height: 62vh; }
+  .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .step { min-height: 0; }
+  .step__num { margin-bottom: 1.5rem; }
+  .road__list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3rem 1rem; border-top: 0; }
+  .phase { border-top: 2px solid var(--line); }
+  .phase::before { top: -10px; box-shadow: 0 0 0 5px var(--bg-2); }
+  .phase::after { right: 0; }
+  .faq__inner { grid-template-columns: 1fr; }
+  .faq .section-head { position: static; margin-bottom: clamp(2rem, 6vh, 4rem); }
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 760px) {
+  :root { --nav-h: 64px; --fs-mega: clamp(4.4rem, 24vw, 9rem); --fs-xl: clamp(3rem, 15vw, 6rem); --fs-lg: clamp(2.2rem, 11vw, 4rem); }
+  .only-mobile { display: inline; }
+
+  .nav__links { display: none; }
+  .nav__burger { display: block; }
+
+  /* Hero: stacked, thumb-reachable CTAs, decorations simplified */
+  .hero { padding-bottom: calc(1.75rem + env(safe-area-inset-bottom)); }
+  .eyebrow { letter-spacing: .04em; }
+  .sticker--a { top: -14%; }
+  .hero__foot { grid-template-columns: 1fr; }
+  .hero__tag { font-size: clamp(1.6rem, 8vw, 2.4rem); }
+  .hero__cta { width: 100%; flex-direction: column; justify-self: stretch; }
+  .hero__cta .btn { width: 100%; }
+
+  /* Section 01 */
+  html.is-motion .what__head { justify-content: flex-start; padding-top: calc(var(--nav-h) + 1rem); }
+  html.is-motion .what__head span { font-size: clamp(4rem, 22vw, 8rem); }
+  html.is-motion .what__reveal { padding-top: calc(var(--nav-h) + .5rem); justify-content: flex-start; gap: 1rem; }
+  html.is-motion .what__reveal-media { height: 40vh; }
+
+  /* Lore: chapters become full-bleed vertical scenes */
+  .chapter__title { font-size: clamp(3.6rem, 20vw, 8rem); }
+  .chapter { padding-bottom: calc(3.2rem + env(safe-area-inset-bottom)); }
+
+  /* Meet */
+  .meet__video { aspect-ratio: 3 / 4; max-height: 56vh; }
+  .stats { grid-template-columns: 1fr; gap: .6rem; }
+  .roster__item { min-width: 150px; padding: .8rem 1.2rem; }
+
+  /* Universe wall becomes a 2-col editorial stack */
+  .wall { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 38vw; }
+  .tile--a { grid-column: 1 / 3; grid-row: span 3; }
+  .tile--b { grid-column: 1; grid-row: span 2; }
+  .tile--c { grid-column: 2; grid-row: span 2; }
+  .tile--d { grid-column: 1 / 3; grid-row: span 1; }
+  .tile--e { grid-column: 1; grid-row: span 3; }
+  .tile--f { grid-column: 2; grid-row: span 2; }
+  .tile--g { grid-column: 2; grid-row: span 1; }
+  .tile--h { grid-column: 1 / 3; grid-row: span 2; }
+  .tile--i { grid-column: 1 / 3; grid-row: span 1; }
+  .tile__cap { opacity: 1; transform: none; }
+  .tile:hover { transform: none; }
+  .wall:has(.tile:hover) .tile:not(:hover) { filter: none; transform: none; }
+
+  /* Token */
+  .token__title { -webkit-text-stroke-width: 1.5px; }
+  .spec__row { grid-template-columns: 1fr; gap: .2rem; }
+  .spec__label { padding-bottom: 0; }
+  .spec__value { font-size: clamp(2.6rem, 14vw, 6rem); }
+  .contract__addr { font-size: 1rem; }
+  .contract__btn { width: 100%; justify-content: center; padding: 1.1em; }
+
+  /* Buy */
+  .buy { min-height: 100svh; }
+  .btn--mega { width: 100%; padding: 1.6rem 1rem; font-size: clamp(2rem, 11vw, 3.4rem); }
+
+  /* Community */
+  .socials { grid-template-columns: 1fr; }
+  .social { min-height: 0; grid-auto-flow: column; align-items: center; grid-template-columns: auto 1fr; }
+  .social span { font-size: clamp(2rem, 11vw, 3rem); }
+
+  /* Chaos */
+  .chaos__btn { border-width: 3px; }
+
+  /* Final */
+  .final__cta { flex-direction: column; width: 100%; }
+  .final__cta .btn { width: 100%; }
+  html.is-motion .final__cta { margin-bottom: 8vh; padding: 0 var(--gutter); }
+
+  .footer__row { flex-direction: column; align-items: flex-start; }
+
+  /* Newer sections */
+  .nav__logo img { width: 34px; height: 34px; }
+  .facts { grid-template-columns: 1fr; }
+  .mg__templates { gap: .4rem; }
+  .mg__row--end { grid-template-columns: 1fr 1fr; }
+  .mg__row--end .field { grid-column: 1 / -1; }
+  .mg__actions .btn { width: 100%; }
+  .live__stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem; }
+  .stat { padding: 1rem; }
+  .stat__value { font-size: clamp(1.5rem, 7.2vw, 2.6rem); }
+  .chart { height: 70vh; }
+  .steps { grid-template-columns: 1fr; }
+  .road__list { grid-template-columns: 1fr; gap: 2.5rem; }
+  .social__sub { margin-top: .2rem; }
+  .social { grid-template-rows: auto auto; grid-auto-flow: row; gap: 0 1.2rem; padding: 1.1rem 1.2rem; }
+  .social svg { grid-row: 1 / span 2; align-self: center; margin: 0; }
+  .social > span, .social__sub { grid-column: 2; }
+}
+
+/* ---------- Touch devices: no hover-dependent affordances ---------- */
+@media (hover: none) {
+  .chart__cover span { opacity: 1; transform: none; }
+  .btn::before { display: none; }
+  .tile__cap { opacity: 1; transform: none; }
+}
+
+/* ---------- Short landscape phones ---------- */
+@media (max-height: 520px) and (orientation: landscape) {
+  .hero { padding-top: calc(var(--nav-h) + .5rem); }
+  .hero__cta .btn { padding: .7rem 1.4rem; }
+}
+
+/* ---------- Phone polish: sizes checked at 320, 360 and 390px wide ---------- */
+@media (max-width: 760px) {
+  /* longest single word ("EVERYBODY") has to fit the screen */
+  html.is-motion .what__line { font-size: clamp(3rem, 19vw, 7rem); }
+  .tile--text p { font-size: clamp(2rem, 9vw, 3.4rem); }
+  .tile--i p { font-size: clamp(2.4rem, 11vw, 4rem); }
+  /* a full price ("$0.00002905") must fit a half-width card on the narrowest phones */
+  .stat__value { font-size: clamp(1.15rem, 6.2vw, 2.6rem); }
+}

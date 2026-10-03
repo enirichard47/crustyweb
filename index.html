@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>$CRUSTY — Crusty the Microwave | Hot. Dirty. Decentralized.</title>
+  <meta name="description" content="Crusty the Microwave: the community-run meme coin on Solana. The dev sold and left. The holders took over and kept it cooking.">
+  <meta name="theme-color" content="#0a0705">
+  <link rel="icon" type="image/jpeg" href="assets/images/rave.jpg">
+  <link rel="apple-touch-icon" href="assets/images/rave.jpg">
+  <meta property="og:title" content="$CRUSTY — Crusty the Microwave">
+  <meta property="og:description" content="Hot. Dirty. Decentralized. The community-run meme coin on Solana.">
+  <meta property="og:image" content="assets/images/rave.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;600;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Marks JS as available so the hero can stay hidden until its intro is set up (no flash of the final state).
+       The timeout is a failsafe: if a script never loads, the hero still appears. -->
+  <script>(function (d) { d.classList.add('js'); setTimeout(function () { d.classList.add('is-booted'); }, 4000); setTimeout(function () { d.classList.add('is-loaded'); }, 9000); })(document.documentElement);</script>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <!-- Libraries (deferred, in order): Lenis smooth scroll, GSAP (GreenSock Animation Platform), ScrollTrigger -->
+  <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <!-- Project scripts. Order matters: each registers a module on window.TK; main.js boots them all. -->
+  <script defer src="js/video.js"></script>
+  <script defer src="js/cursor.js"></script>
+  <script defer src="js/interactions.js"></script>
+  <script defer src="js/live.js"></script>
+  <script defer src="js/meme.js"></script>
+  <script defer src="js/animations.js"></script>
+  <script defer src="js/main.js"></script>
+</head>
+<body>
+  <!-- ============ PRELOADER (css: section 22, js: main.js runLoader) ============
+       A little microwave counts down while fonts and the hero clip load, then dings and lifts away.
+       Only shown when JS is available (html.js); the inline script in <head> hides it if scripts never boot. -->
+  <div class="loader" id="loader" role="status" aria-label="Loading">
+    <div class="loader__inner">
+      <div class="mw" aria-hidden="true">
+        <div class="mw__window"><span class="mw__coin display">$</span></div>
+        <div class="mw__panel">
+          <span class="mw__clock" data-loader-clock>0:03</span>
+          <i class="mw__knob"></i><i class="mw__knob"></i>
+        </div>
+      </div>
+      <div class="loader__bar" aria-hidden="true"><i data-loader-bar></i></div>
+      <p class="loader__label mono" aria-hidden="true"><span>Reheating <b data-ticker>$CRUSTY</b></span><span data-loader-pct>0%</span></p>
+    </div>
+  </div>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Custom cursor (desktop only; enabled by cursor.js) -->
+  <div class="cursor" aria-hidden="true"><span class="cursor__label"></span></div>
+
+  <!-- ============ NAVIGATION ============ -->
+  <header class="nav" id="nav">
+    <a href="#top" class="nav__logo" data-cursor="TOP"><img src="assets/images/rave.jpg" alt="" width="40" height="40"><span data-ticker>$CRUSTY</span></a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="#what">About</a>
+      <a href="#lore">Story</a>
+      <a href="#memes">Memes</a>
+      <a href="#live">Chart</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#faq">FAQ</a>
+      <a href="#buy" class="nav__buy" data-cursor="BUY">Buy</a>
+    </nav>
+    <button class="nav__burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
+      <span></span><span></span>
+    </button>
+  </header>
+
+  <div class="menu" id="menu" aria-hidden="true">
+    <nav class="menu__inner" aria-label="Mobile">
+      <a href="#what" class="menu__link" data-menu-link><span>About</span></a>
+      <a href="#lore" class="menu__link" data-menu-link><span>Story</span></a>
+      <a href="#memes" class="menu__link" data-menu-link><span>Memes</span></a>
+      <a href="#live" class="menu__link" data-menu-link><span>Chart</span></a>
+      <a href="#roadmap" class="menu__link" data-menu-link><span>Roadmap</span></a>
+      <a href="#faq" class="menu__link" data-menu-link><span>FAQ</span></a>
+      <a href="#buy" class="menu__link menu__link--accent" data-menu-link><span>Buy</span></a>
+    </nav>
+    <p class="menu__foot mono">Community-run meme coin. Entertainment only. Not financial advice.</p>
+  </div>
+
+  <main id="main">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="top">
+      <div class="hero__media" data-hero-media>
+        <div class="vid" data-video data-eager
+             data-src="assets/videos/hero.MP4"
+             data-poster="assets/images/hero.jpg"
+             data-label="hero.MP4" style="--h:18"></div>
+      </div>
+      <div class="hero__shade" aria-hidden="true"></div>
+
+      <div class="hero__content">
+        <!-- The ticker is sized by JS (interactions.js: initHeroFit) to fill the row, whatever its length. -->
+        <div class="hero__headline">
+          <h1 class="hero__title display mega" data-hero-title aria-label="$CRUSTY"><span data-ticker>$CRUSTY</span></h1>
+          <span class="sticker sticker--a mono" data-depth="0.9" aria-hidden="true">CTO</span>
+          <span class="sticker sticker--b mono" data-depth="-0.6" aria-hidden="true">Ding!</span>
+        </div>
+
+        <div class="hero__foot">
+          <p class="hero__tag display" data-hero-in>Hot. Dirty. Decentralized.</p>
+          <div class="hero__scroll mono" data-hero-in aria-hidden="true"><span>Scroll</span><i></i></div>
+          <div class="hero__cta" data-hero-in>
+            <a href="#buy" class="btn btn--primary magnetic" data-link="buy" data-cursor="BUY"><span>Buy <b data-ticker>$CRUSTY</b></span></a>
+            <a href="#community" class="btn btn--ghost magnetic" data-cursor="JOIN"><span>Join the kitchen</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 01 — WHAT IS THIS? ============ -->
+    <section class="what" id="what">
+      <div class="what__pin" data-what-pin>
+        <h2 class="what__head display xl" data-what-head aria-label="What is this?">
+          <span>What</span><span>is</span><span class="accent">this?</span>
+        </h2>
+
+        <div class="what__lines">
+          <p class="what__line display lg" data-what-line>A microwave.</p>
+          <p class="what__line display lg" data-what-line>Never <span class="accent">cleaned.</span></p>
+          <p class="what__line display lg" data-what-line>Still hot.</p>
+          <p class="what__line display lg" data-what-line>Nobody owns it.</p>
+          <p class="what__line display lg" data-what-line>Everybody <span class="accent">runs it.</span></p>
+        </div>
+
+        <div class="what__reveal" data-what-reveal>
+          <div class="what__reveal-media" data-what-media>
+            <div class="vid" data-video data-src="assets/videos/IMG_0986.MP4" data-label="IMG_0986.MP4" style="--h:28"></div>
+          </div>
+          <div class="what__reveal-text">
+            <p class="mono eyebrow-sm">The actual answer</p>
+            <h2 class="display xl"><span data-ticker>$CRUSTY</span><br>is a meme coin.</h2>
+            <p class="what__body">Crusty the Microwave is the meme coin sizzling through the crypto kitchen. Its dev sold and walked out. The holders stayed, took it over, and have been running it ever since.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 02 — THE LORE ============ -->
+    <section class="lore" id="lore">
+      <div class="lore__pin" data-lore-pin>
+        <div class="lore__stage">
+
+          <article class="chapter" data-chapter>
+            <div class="chapter__media" data-chapter-media>
+              <div class="vid" data-video data-src="assets/videos/IMG_0698.MP4" data-label="IMG_0698.MP4" style="--h:10"></div>
+            </div>
+            <div class="chapter__shade"></div>
+            <div class="chapter__copy" data-chapter-copy>
+              <p class="chapter__num mono">Chapter 01</p>
+              <h2 class="chapter__title display xl">The dev<br>walks</h2>
+              <p class="chapter__line">Sold everything. Left the kitchen. Left the microwave running.</p>
+            </div>
+          </article>
+
+          <article class="chapter" data-chapter>
+            <div class="chapter__media" data-chapter-media>
+              <div class="vid" data-video data-src="assets/videos/IMG_0664.MP4" data-label="IMG_0664.MP4" style="--h:24"></div>
+            </div>
+            <div class="chapter__shade"></div>
+            <div class="chapter__copy" data-chapter-copy>
+              <p class="chapter__num mono">Chapter 02</p>
+              <h2 class="chapter__title display xl">The<br>takeover</h2>
+              <p class="chapter__line">The holders did not leave. A team stepped up and made it a community takeover.</p>
+            </div>
+          </article>
+
+          <article class="chapter" data-chapter>
+            <div class="chapter__media" data-chapter-media>
+              <div class="vid" data-video data-src="assets/videos/IMG_0777.MP4" data-label="IMG_0777.MP4" style="--h:4"></div>
+            </div>
+            <div class="chapter__shade"></div>
+            <div class="chapter__copy" data-chapter-copy>
+              <p class="chapter__num mono">Chapter 03</p>
+              <h2 class="chapter__title display xl">It<br>bonds</h2>
+              <p class="chapter__line">They pushed until the bonding curve filled. All-time high: a 45K market cap.</p>
+            </div>
+          </article>
+
+          <article class="chapter" data-chapter>
+            <div class="chapter__media" data-chapter-media>
+              <div class="vid" data-video data-src="assets/videos/IMG_0635.MP4" data-label="IMG_0635.MP4" style="--h:32"></div>
+            </div>
+            <div class="chapter__shade"></div>
+            <div class="chapter__copy" data-chapter-copy>
+              <p class="chapter__num mono">Chapter 04</p>
+              <h2 class="chapter__title display xl"><span data-ticker>$CRUSTY</span><br>stays hot</h2>
+              <p class="chapter__line">Listed across the tracking sites. Some supply burned, some locked. Still cooking.</p>
+            </div>
+          </article>
+
+          <div class="lore__progress" aria-hidden="true"><i data-lore-bar></i></div>
+          <p class="lore__count mono" aria-hidden="true"><span data-lore-current>01</span> / 04</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 03 — MEET THE CHARACTER ============ -->
+    <section class="meet" id="meet">
+      <div class="meet__stage" data-meet-stage>
+        <div class="meet__bg" data-meet-bg></div>
+        <div class="meet__particles" data-particles aria-hidden="true"></div>
+
+        <h2 class="meet__title display" aria-live="polite">
+          <span data-reveal-up>Meet</span>
+          <span data-reveal-up>the</span>
+          <span class="accent" data-reveal-up data-meet-name>Unit</span>
+        </h2>
+
+        <div class="meet__video" data-cursor="WATCH">
+          <div class="meet__video-inner">
+            <div class="vid is-active" data-video data-char-video="0" data-src="assets/videos/IMG_0778.MP4" data-label="IMG_0778.MP4" style="--h:22"></div>
+            <div class="vid" data-video data-char-video="1" data-src="assets/videos/IMG_0986.MP4" data-label="IMG_0986.MP4" style="--h:96"></div>
+            <div class="vid" data-video data-char-video="2" data-src="assets/videos/IMG_0698.MP4" data-label="IMG_0698.MP4" style="--h:38"></div>
+          </div>
+        </div>
+
+        <dl class="stats" data-meet-stats>
+          <div><dt class="mono">Name</dt><dd data-stat="name">Crusty the Microwave</dd></div>
+          <div><dt class="mono">Role</dt><dd data-stat="role">The appliance. Never cleaned.</dd></div>
+          <div><dt class="mono">Heat level</dt><dd><span class="meter"><i data-stat-meter></i></span><b data-stat="chaos">100</b></dd></div>
+          <div><dt class="mono">Special power</dt><dd data-stat="power">Reheats whatever the dev left behind</dd></div>
+        </dl>
+
+        <!-- data-title is the word in the big "Meet the ___" heading; data-name fills the Name stat. -->
+        <div class="roster" role="tablist" aria-label="Characters" data-roster>
+          <button class="roster__item is-active" type="button" role="tab" aria-selected="true" data-char="0"
+                  data-title="Unit" data-name="Crusty the Microwave" data-role="The appliance. Never cleaned." data-chaos="100" data-power="Reheats whatever the dev left behind" data-color="#FF8A1F">
+            <i class="mono">01</i><span class="display">Crusty</span>
+          </button>
+          <button class="roster__item" type="button" role="tab" aria-selected="false" data-char="1"
+                  data-title="Frog" data-name="The Frog" data-role="Lives inside. Unbothered." data-chaos="72" data-power="Stays calm at any temperature" data-color="#7DB84A">
+            <i class="mono">02</i><span class="display">The Frog</span>
+          </button>
+          <button class="roster__item" type="button" role="tab" aria-selected="false" data-char="2"
+                  data-title="Crew" data-name="The CTO Crew" data-role="The holders who took over" data-chaos="90" data-power="Keeps the timer running after the dev left" data-color="#F1E2C6">
+            <i class="mono">03</i><span class="display">The Crew</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 04 — MEME UNIVERSE ============ -->
+    <section class="universe" id="universe">
+      <header class="universe__head">
+        <p class="mono eyebrow-sm" data-reveal-up>Fresh out of the microwave</p>
+        <h2 class="display xl" data-reveal-up>The crusty<br><span class="accent">kitchen</span></h2>
+      </header>
+
+      <div class="wall" data-wall>
+        <figure class="tile tile--a" data-tile data-cursor="WATCH">
+          <div class="vid" data-video data-src="assets/videos/IMG_0777.MP4" data-label="IMG_0777.MP4" style="--h:14"></div>
+          <figcaption class="tile__cap mono">Plate 01</figcaption>
+        </figure>
+        <figure class="tile tile--b" data-tile data-cursor="WATCH">
+          <div class="vid" data-video data-src="assets/videos/IMG_0986.MP4" data-label="IMG_0986.MP4" style="--h:28"></div>
+          <figcaption class="tile__cap mono">Plate 02</figcaption>
+        </figure>
+        <figure class="tile tile--c" data-tile data-cursor="WATCH">
+          <div class="vid" data-video data-src="assets/videos/IMG_1004.MP4" data-label="IMG_1004.MP4" style="--h:6"></div>
+          <figcaption class="tile__cap mono">Plate 03</figcaption>
+        </figure>
+        <div class="tile tile--d tile--text" data-tile><p class="display">Still<br>dirty.</p></div>
+        <figure class="tile tile--e" data-tile data-cursor="WATCH">
+          <div class="vid" data-video data-src="assets/videos/IMG_1008.MP4" data-label="IMG_1008.MP4" style="--h:36"></div>
+          <figcaption class="tile__cap mono">Plate 04</figcaption>
+        </figure>
+        <figure class="tile tile--f" data-tile data-cursor="WATCH">
+          <div class="vid" data-video data-src="assets/videos/IMG_0664.MP4" data-label="IMG_0664.MP4" style="--h:20"></div>
+          <figcaption class="tile__cap mono">Plate 05</figcaption>
+        </figure>
+        <figure class="tile tile--g" data-tile data-cursor="WATCH">
+          <div class="vid" data-video data-src="assets/videos/IMG_0778.MP4" data-label="IMG_0778.MP4" style="--h:30"></div>
+          <figcaption class="tile__cap mono">Plate 06</figcaption>
+        </figure>
+        <div class="tile tile--h tile--text tile--accent" data-tile><p class="display">Heat it.<br>Post it.<br>Repeat.</p></div>
+        <div class="tile tile--i tile--text" data-tile><p class="display"><span data-ticker>$CRUSTY</span><br>still hot</p></div>
+      </div>
+    </section>
+
+    <!-- ============ MEME GENERATOR (js/meme.js) ============ -->
+    <section class="memegen" id="memes">
+      <header class="section-head">
+        <p class="mono eyebrow-sm" data-reveal-up>Meme generator</p>
+        <h2 class="display xl" data-reveal-up>Cook your<br><span class="accent">own.</span></h2>
+        <p class="section-head__lede" data-reveal-up>Pick a plate or upload your own picture, add the text, download it, post it.</p>
+      </header>
+
+      <div class="mg" data-meme>
+        <div class="mg__stage">
+          <canvas class="mg__canvas" data-meme-canvas width="1080" height="1080" role="img" aria-label="Meme preview"></canvas>
+        </div>
+
+        <form class="mg__panel" data-meme-form>
+          <fieldset class="mg__group">
+            <legend class="mono">01 · Template</legend>
+            <div class="mg__templates">
+              <button type="button" class="mg__tpl is-active" data-tpl="logo" data-tpl-src="assets/images/rave.jpg" aria-pressed="true"><img src="assets/images/rave.jpg" alt="" loading="lazy"><span class="mono">Crusty</span></button>
+              <button type="button" class="mg__tpl" data-tpl="orbit" data-tpl-src="assets/images/hero.jpg" aria-pressed="false"><img src="assets/images/hero.jpg" alt="" loading="lazy"><span class="mono">Orbit</span></button>
+              <button type="button" class="mg__tpl" data-tpl="chillin" data-tpl-src="assets/images/lore.png" aria-pressed="false"><img src="assets/images/lore.png" alt="" loading="lazy"><span class="mono">Chillin</span></button>
+              <button type="button" class="mg__tpl" data-tpl="moon" data-tpl-src="assets/images/moon_mission.png" aria-pressed="false"><img src="assets/images/moon_mission.png" alt="" loading="lazy"><span class="mono">Moon</span></button>
+              <button type="button" class="mg__tpl" data-tpl="wagmi" data-tpl-src="assets/images/wagmi.png" aria-pressed="false"><img src="assets/images/wagmi.png" alt="" loading="lazy"><span class="mono">Wagmi</span></button>
+              <button type="button" class="mg__tpl" data-tpl="ember" aria-pressed="false"><i class="mg__swatch mg__swatch--ember"></i><span class="mono">Ember</span></button>
+              <button type="button" class="mg__tpl" data-tpl="rust" aria-pressed="false"><i class="mg__swatch mg__swatch--rust"></i><span class="mono">Rust</span></button>
+              <button type="button" class="mg__tpl" data-tpl="soot" aria-pressed="false"><i class="mg__swatch mg__swatch--soot"></i><span class="mono">Soot</span></button>
+              <label class="mg__tpl mg__tpl--upload">
+                <input class="sr-only" type="file" accept="image/*" data-meme-upload>
+                <i class="mg__swatch mg__swatch--upload" aria-hidden="true">+</i><span class="mono">Upload</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="mg__group">
+            <legend class="mono">02 · Text</legend>
+            <label class="field"><span class="mono">Top text</span><input type="text" data-meme-top maxlength="90" value="The dev left" autocomplete="off"></label>
+            <label class="field"><span class="mono">Bottom text</span><input type="text" data-meme-bottom maxlength="90" value="We kept cooking" autocomplete="off"></label>
+          </fieldset>
+
+          <fieldset class="mg__group">
+            <legend class="mono">03 · Style</legend>
+            <div class="mg__row">
+              <label class="field"><span class="mono">Font</span>
+                <select data-meme-font>
+                  <option value="Anton" selected>Anton</option>
+                  <option value="Impact">Impact</option>
+                  <option value="Archivo">Archivo</option>
+                  <option value="Space Mono">Space Mono</option>
+                </select>
+              </label>
+              <label class="field"><span class="mono">Size <output data-meme-size-out>10</output></span>
+                <input type="range" data-meme-size min="4" max="18" step="0.5" value="10">
+              </label>
+            </div>
+            <div class="mg__row mg__row--end">
+              <div class="field"><span class="mono" id="mg-colour">Colour</span>
+                <div class="mg__colors" role="group" aria-labelledby="mg-colour">
+                  <button type="button" class="mg__color is-active" data-color="#f1e2c6" style="--sw:#f1e2c6" aria-label="Cream" aria-pressed="true"></button>
+                  <button type="button" class="mg__color" data-color="#ffffff" style="--sw:#ffffff" aria-label="White" aria-pressed="false"></button>
+                  <button type="button" class="mg__color" data-color="#ff8a1f" style="--sw:#ff8a1f" aria-label="Ember orange" aria-pressed="false"></button>
+                  <button type="button" class="mg__color" data-color="#7db84a" style="--sw:#7db84a" aria-label="Frog green" aria-pressed="false"></button>
+                  <button type="button" class="mg__color" data-color="#0a0705" style="--sw:#0a0705" aria-label="Black" aria-pressed="false"></button>
+                </div>
+              </div>
+              <label class="check"><input type="checkbox" data-meme-caps checked><span class="mono">All caps</span></label>
+              <label class="check"><input type="checkbox" data-meme-outline checked><span class="mono">Outline</span></label>
+            </div>
+          </fieldset>
+
+          <div class="mg__actions">
+            <button type="button" class="btn btn--primary" data-meme-download data-cursor="SAVE"><span>Download meme</span></button>
+            <button type="button" class="btn btn--ghost" data-meme-reset><span>Reset</span></button>
+          </div>
+          <p class="mg__status mono" data-meme-status aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- ============ 05 — TOKEN ============ -->
+    <section class="token" id="token">
+      <div class="token__inner">
+        <p class="mono eyebrow-sm" data-reveal-up>The numbers</p>
+        <h2 class="token__title display mega" data-reveal-up data-ticker>$CRUSTY</h2>
+
+        <ul class="spec">
+          <li class="spec__row" data-reveal-up>
+            <span class="spec__label mono">Launch supply</span>
+            <span class="spec__value display" data-count="1000000000">1,000,000,000</span>
+          </li>
+          <li class="spec__row" data-reveal-up>
+            <span class="spec__label mono">Network</span>
+            <span class="spec__value display" data-network>Solana</span>
+          </li>
+          <li class="spec__row" data-reveal-up>
+            <span class="spec__label mono">Contract</span>
+            <div class="contract">
+              <code class="contract__addr" data-contract-full>CLn6y4vGYQeGXWuwf3QUdq77vytto5dwwpnDZZajpump</code>
+              <button class="contract__btn mono" type="button" data-copy data-cursor="COPY" aria-live="polite">
+                <span class="contract__idle">Copy</span>
+                <span class="contract__done">Copied ✓</span>
+              </button>
+              <span class="contract__burst" data-burst aria-hidden="true"></span>
+            </div>
+          </li>
+        </ul>
+
+        <!-- Project status. Only publish verified information here: no amounts or dates unless the team supplies them. -->
+        <ul class="facts">
+          <li class="fact" data-reveal-up><span class="fact__label mono">Ownership</span><span class="fact__value display">Community takeover</span><span class="fact__note">The dev sold and left. The holders run it now.</span></li>
+          <li class="fact" data-reveal-up><span class="fact__label mono">Bonding curve</span><span class="fact__value display">Bonded</span><span class="fact__note">The community pushed it all the way through.</span></li>
+          <li class="fact" data-reveal-up><span class="fact__label mono">All-time high</span><span class="fact__value display">45K market cap</span><span class="fact__note">A past peak, not a promise.</span></li>
+          <li class="fact" data-reveal-up><span class="fact__label mono">Supply</span><span class="fact__value display">Burned + locked</span><span class="fact__note">Part of the supply is burned, part is locked.</span></li>
+          <li class="fact" data-reveal-up><span class="fact__label mono">Listings</span><span class="fact__value display">Listed</span><span class="fact__note">Tracked on multiple listing sites.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ LIVE STATS (js/live.js, data from the Dexscreener API) ============ -->
+    <section class="live" id="live" data-live>
+      <header class="section-head">
+        <p class="mono eyebrow-sm" data-reveal-up><span class="live__dot" aria-hidden="true"></span>Live from the kitchen</p>
+        <h2 class="display xl" data-reveal-up>How hot<br><span class="accent">right now?</span></h2>
+      </header>
+
+      <ul class="live__stats">
+        <li class="stat" data-reveal-up><span class="stat__label mono">Market cap</span><span class="stat__value display" data-live-stat="mcap">—</span></li>
+        <li class="stat" data-reveal-up><span class="stat__label mono">Price</span><span class="stat__value display" data-live-stat="price">—</span></li>
+        <li class="stat" data-reveal-up><span class="stat__label mono">24h volume</span><span class="stat__value display" data-live-stat="volume">—</span></li>
+        <li class="stat" data-reveal-up><span class="stat__label mono">24h change</span><span class="stat__value display" data-live-stat="change">—</span></li>
+      </ul>
+
+      <!-- The cover keeps page scrolling smooth: the chart only captures the mouse after a click. -->
+      <div class="chart" data-chart>
+        <iframe class="chart__frame" data-chart-frame title="$CRUSTY price chart on Dexscreener" loading="lazy"></iframe>
+        <button class="chart__cover" type="button" data-chart-cover data-cursor="OPEN"><span class="mono">Click to use the chart</span></button>
+      </div>
+
+      <p class="live__meta mono">
+        <span data-live-status aria-live="polite">Loading live data…</span>
+        <a href="#" data-link="chart" data-cursor="VIEW">Open on Dexscreener ↗</a>
+      </p>
+    </section>
+
+    <!-- ============ HOW TO BUY ============ -->
+    <section class="how" id="how">
+      <header class="section-head">
+        <p class="mono eyebrow-sm" data-reveal-up>How to buy</p>
+        <h2 class="display xl" data-reveal-up>Four steps.<br><span class="accent">One plate.</span></h2>
+      </header>
+
+      <ol class="steps">
+        <li class="step" data-reveal-up>
+          <span class="step__num display" aria-hidden="true">01</span>
+          <h3 class="step__title display">Get a wallet</h3>
+          <p>Install a Solana wallet such as Phantom or Solflare. Write the recovery phrase down and keep it offline.</p>
+        </li>
+        <li class="step" data-reveal-up>
+          <span class="step__num display" aria-hidden="true">02</span>
+          <h3 class="step__title display">Load it with SOL</h3>
+          <p>Buy SOL on an exchange or inside the wallet and send it to your address. Keep a little spare for network fees.</p>
+        </li>
+        <li class="step" data-reveal-up>
+          <span class="step__num display" aria-hidden="true">03</span>
+          <h3 class="step__title display">Copy the contract</h3>
+          <p>Search by this address, never by name. Copycats use the same ticker.</p>
+          <p class="step__ca"><code data-contract-short>CLn6y4...pump</code><button type="button" class="footer__copy mono" data-copy data-cursor="COPY">Copy</button></p>
+        </li>
+        <li class="step" data-reveal-up>
+          <span class="step__num display" aria-hidden="true">04</span>
+          <h3 class="step__title display">Swap for <span data-ticker>$CRUSTY</span></h3>
+          <p>Open a Solana swap such as Jupiter, connect your wallet, paste the address, pick an amount and confirm.</p>
+          <a class="step__link mono" href="#buy" data-link="buy" data-cursor="BUY">Open the swap ↗</a>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ============ 06 — BUY ============ -->
+    <section class="buy" id="buy">
+      <div class="buy__media" data-buy-media>
+        <div class="vid" data-video data-src="assets/videos/IMG_1004.MP4" data-label="IMG_1004.MP4" style="--h:16"></div>
+      </div>
+      <div class="buy__shade" aria-hidden="true"></div>
+      <div class="buy__content">
+        <h2 class="buy__title display xl">
+          <span data-reveal-up>The dev left.</span>
+          <span data-reveal-up>We kept cooking.</span>
+          <span class="accent" data-reveal-up>Get it while</span>
+          <span class="accent" data-reveal-up>it's hot.</span>
+        </h2>
+        <a href="#" class="btn btn--mega magnetic" data-link="buy" data-cursor="BUY">
+          <span>Buy <b data-ticker>$CRUSTY</b></span>
+        </a>
+        <p class="buy__note mono">Do your own research. Never spend what you can't afford to lose.</p>
+      </div>
+    </section>
+
+    <!-- ============ ROADMAP ============ -->
+    <section class="road" id="roadmap">
+      <header class="section-head">
+        <p class="mono eyebrow-sm" data-reveal-up>Roadmap</p>
+        <h2 class="display xl" data-reveal-up>The cook<br><span class="accent">so far.</span></h2>
+      </header>
+
+      <ol class="road__list">
+        <li class="phase is-done" data-reveal-up>
+          <p class="phase__tag mono"><span>Phase 01</span><b>Done</b></p>
+          <h3 class="phase__title display">Defrost</h3>
+          <ul><li><span data-ticker>$CRUSTY</span> launches on Solana</li><li>The dev sells and leaves</li><li>The holders take over</li></ul>
+        </li>
+        <li class="phase is-done" data-reveal-up>
+          <p class="phase__tag mono"><span>Phase 02</span><b>Done</b></p>
+          <h3 class="phase__title display">Reheat</h3>
+          <ul><li>The community pushes the curve</li><li>The token bonds</li><li>45K market cap all-time high</li></ul>
+        </li>
+        <li class="phase is-done" data-reveal-up>
+          <p class="phase__tag mono"><span>Phase 03</span><b>Done</b></p>
+          <h3 class="phase__title display">Full power</h3>
+          <ul><li>Listed on multiple listing sites</li><li>Part of the supply burned</li><li>Part of the supply locked</li></ul>
+        </li>
+        <li class="phase is-next" data-reveal-up>
+          <p class="phase__tag mono"><span>Phase 04</span><b>Next</b></p>
+          <h3 class="phase__title display">Next plate</h3>
+          <!-- TODO (team): replace with the real next steps once they are agreed. -->
+          <ul><li>More memes out of the kitchen</li><li>More holders at the table</li><li>More places to find Crusty</li></ul>
+        </li>
+      </ol>
+      <p class="road__note mono">Phase 04 is a direction, not a promise. The community decides what gets cooked.</p>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="faq" id="faq">
+      <div class="faq__inner">
+        <header class="section-head">
+          <p class="mono eyebrow-sm" data-reveal-up>FAQ</p>
+          <h2 class="display xl" data-reveal-up>Asked<br><span class="accent">often.</span></h2>
+        </header>
+        <div class="faq__list" data-faq>
+          <div class="faq__item" data-reveal-up>
+            <h3><button class="faq__q" type="button" id="faq-q1" aria-expanded="false" aria-controls="faq-a1"><span class="display">What is $CRUSTY?</span><i aria-hidden="true"></i></button></h3>
+            <div class="faq__a" id="faq-a1" role="region" aria-labelledby="faq-q1"><div><p>Crusty the Microwave is a meme coin on Solana. It exists for the memes and the community around them. It has no utility and makes no promise of returns.</p></div></div>
+          </div>
+          <div class="faq__item" data-reveal-up>
+            <h3><button class="faq__q" type="button" id="faq-q2" aria-expanded="false" aria-controls="faq-a2"><span class="display">What does "community takeover" mean?</span><i aria-hidden="true"></i></button></h3>
+            <div class="faq__a" id="faq-a2" role="region" aria-labelledby="faq-q2"><div><p>The original developer sold their tokens and left the project. Instead of letting it go cold, holders stepped up and took over the socials, the listings and the day-to-day. That is what CTO means here: nobody owns Crusty, the community runs it.</p></div></div>
+          </div>
+          <div class="faq__item" data-reveal-up>
+            <h3><button class="faq__q" type="button" id="faq-q3" aria-expanded="false" aria-controls="faq-a3"><span class="display">What does "bonded" mean?</span><i aria-hidden="true"></i></button></h3>
+            <div class="faq__a" id="faq-a3" role="region" aria-labelledby="faq-q3"><div><p>The token finished its launch bonding curve, so it now trades on an open Solana liquidity pool instead of the launch platform. The community pushed it there after the dev had already left.</p></div></div>
+          </div>
+          <div class="faq__item" data-reveal-up>
+            <h3><button class="faq__q" type="button" id="faq-q4" aria-expanded="false" aria-controls="faq-a4"><span class="display">Is the contract safe?</span><i aria-hidden="true"></i></button></h3>
+            <div class="faq__a" id="faq-a4" role="region" aria-labelledby="faq-q4"><div><p>Do not take a website's word for it. Copy the contract address from this page, paste it into a Solana explorer such as Solscan or a token checker, and look at the mint authority, the freeze authority and the top holders yourself. The team reports that part of the supply has been burned and part is locked.</p></div></div>
+          </div>
+          <div class="faq__item" data-reveal-up>
+            <h3><button class="faq__q" type="button" id="faq-q5" aria-expanded="false" aria-controls="faq-a5"><span class="display">Where can I trade it?</span><i aria-hidden="true"></i></button></h3>
+            <div class="faq__a" id="faq-a5" role="region" aria-labelledby="faq-q5"><div><p>On Solana decentralised exchanges. The simplest route is a swap aggregator such as Jupiter: paste the contract address and swap from SOL. The live chart and pool are on Dexscreener. Always match the contract address before you confirm.</p></div></div>
+          </div>
+          <div class="faq__item" data-reveal-up>
+            <h3><button class="faq__q" type="button" id="faq-q6" aria-expanded="false" aria-controls="faq-a6"><span class="display">What was the all-time high?</span><i aria-hidden="true"></i></button></h3>
+            <div class="faq__a" id="faq-a6" role="region" aria-labelledby="faq-q6"><div><p>The highest market cap so far was about 45K. That is history, not a forecast. The live numbers are in the chart section above.</p></div></div>
+          </div>
+          <div class="faq__item" data-reveal-up>
+            <h3><button class="faq__q" type="button" id="faq-q7" aria-expanded="false" aria-controls="faq-a7"><span class="display">Is this financial advice?</span><i aria-hidden="true"></i></button></h3>
+            <div class="faq__a" id="faq-a7" role="region" aria-labelledby="faq-q7"><div><p>No. $CRUSTY is a meme coin and can go to zero. Only use money you can afford to lose.</p></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 07 — COMMUNITY ============ -->
+    <section class="community" id="community">
+      <div class="community__inner">
+        <h2 class="display xl">
+          <span data-reveal-up>The kitchen</span>
+          <span data-reveal-up class="accent">is open.</span>
+        </h2>
+
+        <ul class="socials">
+          <li>
+            <a class="social magnetic" href="#" data-link="x" data-cursor="JOIN" aria-label="X (formerly Twitter)">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              <span class="display">X</span><small class="social__sub mono">@CrustyCto · news and memes</small>
+            </a>
+          </li>
+          <li>
+            <a class="social magnetic" href="#" data-link="telegram" data-cursor="JOIN" aria-label="Telegram">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
+              <span class="display">Telegram</span><small class="social__sub mono">t.me/CRUSTYCTO · the kitchen chat</small>
+            </a>
+          </li>
+          <li>
+            <a class="social magnetic" href="#" data-link="chart" data-cursor="VIEW" aria-label="Dexscreener chart">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h2v16h16v2H3zm4 11.5 4-5 3.5 3L19.6 6l1.6 1.2-6.4 8.3-3.5-3L8.6 15.7z"/></svg>
+              <span class="display">Dexscreener</span><small class="social__sub mono">Live chart and pool</small>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="marquee" aria-hidden="true" data-marquee>
+        <div class="marquee__track" data-marquee-track>
+          <span class="marquee__item display">Hot • Dirty • Decentralized • Hot • Dirty • Decentralized • </span>
+          <span class="marquee__item display">Hot • Dirty • Decentralized • Hot • Dirty • Decentralized • </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 08 — CHAOS / SURPRISE ============ -->
+    <section class="chaos" id="chaos">
+      <div class="chaos__media" aria-hidden="true">
+        <div class="vid" data-video data-src="assets/videos/IMG_1004.MP4" data-label="IMG_1004.MP4" style="--h:2"></div>
+      </div>
+      <div class="chaos__inner">
+        <p class="mono eyebrow-sm">There is a fork inside. Probably fine.</p>
+        <button class="chaos__btn display" type="button" data-chaos-btn data-cursor="NO">Do not<br>press start.</button>
+        <p class="chaos__warned display" data-chaos-warned aria-live="polite" hidden>Ding.</p>
+        <button class="chaos__skip mono" type="button" data-chaos-skip hidden>Skip animation</button>
+      </div>
+      <div class="chaos-fx" data-chaos-fx aria-hidden="true"></div>
+    </section>
+
+    <!-- ============ 09 — FINAL CTA ============ -->
+    <section class="final" id="final">
+      <div class="final__pin" data-final-pin>
+        <div class="final__media" data-final-media>
+          <div class="vid" data-video data-src="assets/videos/hero.MP4" data-poster="assets/images/hero.jpg" data-label="hero.MP4" style="--h:22"></div>
+        </div>
+        <div class="final__shade" aria-hidden="true"></div>
+        <div class="final__copy">
+          <p class="final__a display xl" data-final-a>Still hungry?</p>
+          <p class="final__b display xl accent" data-final-b>Ding.</p>
+          <p class="final__c display xl" data-final-c>Pull up<br>a chair.</p>
+          <div class="final__cta" data-final-cta>
+            <a href="#community" class="btn btn--primary magnetic" data-link="telegram" data-cursor="JOIN"><span>Join the Telegram</span></a>
+            <a href="#community" class="btn btn--ghost magnetic" data-link="x" data-cursor="FOLLOW"><span>Follow on X</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <h2 class="footer__title display mega" data-footer-title>Stay hot.<br>Stay <span class="accent">crusty.</span></h2>
+
+    <div class="footer__row">
+      <p class="footer__logo display" data-ticker>$CRUSTY</p>
+      <nav class="footer__links mono" aria-label="Footer">
+        <a href="#" data-link="x">X</a>
+        <a href="#" data-link="telegram">Telegram</a>
+        <a href="#" data-link="chart">Dexscreener</a>
+        <a href="#buy">Buy</a>
+      </nav>
+    </div>
+
+    <p class="footer__contract mono">Contract: <code data-contract-short>CLn6y4...pump</code> <button type="button" class="footer__copy" data-copy data-cursor="COPY">Copy</button></p>
+
+    <p class="footer__legal">
+      <span data-ticker>$CRUSTY</span> is a meme coin run by its community for entertainment. The original developer sold and left; the project is a community takeover (CTO) kept going by volunteer holders. It has no intrinsic value and no promise of financial return. Past market cap figures say nothing about future price.
+      Nothing on this site is financial, investment, legal or tax advice. Crypto assets are extremely volatile and you can lose everything.
+      Do your own research and never spend money you cannot afford to lose. This project is not affiliated with any exchange or company.
+    </p>
+  </footer>
+</body>
+</html>
